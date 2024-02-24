@@ -1,1 +1,1 @@
-import.meta.env.VITE_API_RECETA
+const URL_Recetas = import.meta.env.VITE_API_RECETA;
