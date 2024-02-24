@@ -1,0 +1,11 @@
+{
+    "recetas" : [
+        {
+            "id" : "1",
+            "nombreReceta" : "Puré de papas",
+            "descripcionReceta" : "El puré de papas es un acompañamiento suave y cremoso, preparado triturando papas cocidas con mantequilla y leche.",
+            "receta" : "Para hacer un puré de papas delicioso, comienza pelando y cortando cuatro papas medianas en trozos uniformes. Cocina las papas en agua hirviendo hasta que estén tiernas. Escúrrelas y colócalas en un tazón grande. Calienta media taza de leche, pero no la dejes hervir. Agrega cuatro cucharadas de mantequilla a las papas y comienza a hacer puré. Incorpora gradualmente la leche caliente para lograr una consistencia cremosa. Añade sal al gusto y, opcionalmente, pimienta. Mezcla bien y sirve el puré caliente. ¡Listo para disfrutar!",
+            "ingredientes" : ["Papas medianas (aproximadamente 4)", "Leche (1/2 taza)", "Mantequilla (4 cucharadas)", "Sal (al gusto)", "Pimienta (opcional, al gusto)"]
+        }
+    ]
+}
