@@ -7,3 +7,13 @@
 .mainSection{
     flex-grow: 1;
 }
+
+.recetaCardContainer{
+    min-width: 220px;
+    max-width: 250px;
+}
+
+.recetaCardImg{
+    max-height: 250px;
+    object-fit: cover;
+}
