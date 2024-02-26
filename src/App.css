@@ -17,3 +17,9 @@
     max-height: 250px;
     object-fit: cover;
 }
+
+.banner {
+    object-fit: cover;
+    height: 395px;
+    width: 100%;
+  }
