@@ -32,11 +32,11 @@ const FormularioRecetas = () => {
           <Form.Label>Categoría*</Form.Label>
           <Form.Select>
             <option value="">Seleccione una opcion</option>
-            <option value="Infusiones">Sopas</option>
-            <option value="Batidos">Carnes</option>
-            <option value="dulce">Pastas</option>
-            <option value="salado">Salsas</option>
-            <option value="salado">Ensaladas</option>
+            <option value="Sopas">Sopas</option>
+            <option value="Carnes">Carnes</option>
+            <option value="Pastas">Pastas</option>
+            <option value="Salsas">Salsas</option>
+            <option value="Ensaladas">Ensaladas</option>
           </Form.Select>
           <Form.Text className="text-danger">
           prueba de error

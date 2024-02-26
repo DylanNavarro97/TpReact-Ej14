@@ -18,12 +18,12 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Inicio />}/>  
           <Route exact path='/administrador' element={<Admin />}/>
+          <Route exact path="/crear" element={<FormularioRecetas/>} />
+          <Route exact path="/editar/:id" element={<FormularioRecetas />}/>
           <Route path="*" element={<Error404 />} />
-          <Route exact path="/" element={<FormularioRecetas/>} />
         </Routes>
         <Footer />
       </BrowserRouter>
-      <FormularioRecetas/>
     </>
   )
 }
