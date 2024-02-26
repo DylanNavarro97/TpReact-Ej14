@@ -7,6 +7,7 @@ import Inicio from './components/pages/Inicio';
 import Footer from './components/common/Footer';
 import Error404 from './components/pages/Error404';
 import Admin from './components/pages/Admin';
+import FormularioRecetas from './components/recetas/FormularioRecetas';
 
 function App() {
 
@@ -18,9 +19,11 @@ function App() {
           <Route exact path="/" element={<Inicio />}/>  
           <Route exact path='/administrador' element={<Admin />}/>
           <Route path="*" element={<Error404 />} />
+          <Route exact path="/" element={<FormularioRecetas/>} />
         </Routes>
         <Footer />
       </BrowserRouter>
+      <FormularioRecetas/>
     </>
   )
 }
