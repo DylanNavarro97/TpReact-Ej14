@@ -7,6 +7,7 @@ import Inicio from './components/pages/Inicio';
 import Footer from './components/common/Footer';
 import Error404 from './components/pages/Error404';
 import Admin from './components/pages/Admin';
+import FormularioRecetas from './components/recetas/FormularioRecetas';
 
 function App() {
 
@@ -17,6 +18,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Inicio />}/>  
           <Route exact path='/administrador' element={<Admin />}/>
+          <Route exact path="/crear" element={<FormularioRecetas/>} />
+          <Route exact path="/editar/:id" element={<FormularioRecetas />}/>
           <Route path="*" element={<Error404 />} />
         </Routes>
         <Footer />
