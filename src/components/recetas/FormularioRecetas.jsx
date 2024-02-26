@@ -31,7 +31,7 @@ const FormularioRecetas = () => {
         <Form.Group className="mb-3" controlId="formPrecio">
           <Form.Label>Categoría*</Form.Label>
           <Form.Select>
-            <option value="">Seleccione una opcion</option>
+            <option>Seleccione una opción</option>
             <option value="Sopas">Sopas</option>
             <option value="Carnes">Carnes</option>
             <option value="Pastas">Pastas</option>
