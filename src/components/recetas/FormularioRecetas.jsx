@@ -3,6 +3,14 @@ import { Form, Button } from "react-bootstrap";
 
 const FormularioRecetas = () => {
 
+  const {
+    register,
+    handleSubmit,
+    formState: {errors},
+    reset, 
+    setValue
+  } = useForm()
+
   return (
     <section className="container mainSection">
       <h1 className="display-4 mt-5">Nueva Receta</h1>
