@@ -29,3 +29,10 @@
   height: 395px;
   width: 100%;
 }
+
+.img-admin{
+    min-width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
