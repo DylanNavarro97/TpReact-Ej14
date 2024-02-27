@@ -11,7 +11,8 @@ const FormularioRecetas = () => {
   } = useForm();
 
   const recetaValidada = (receta) => {
-    console.log(receta)
+    const arrayIngredientes = receta.listaIngredientes.split(',')
+    receta.listaIngredientes = arrayIngredientes
   };
 
   return (
@@ -141,8 +142,8 @@ const FormularioRecetas = () => {
                 message: "Debe contener como mínimo 5 caracteres"
               },
               maxLength:{
-                value: 50,
-                message: "Debe contener como máximo 50 caracteres"
+                value: 100,
+                message: "Debe contener como máximo 100 caracteres"
               }
             })}
           />
