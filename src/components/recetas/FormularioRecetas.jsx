@@ -1,10 +1,15 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { crearRecetaAPI } from "../../helpers/queries";
+import {
+  crearRecetaAPI,
+  editarReceta,
+  leerRecetaPorId,
+} from "../../helpers/queries";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 
 const FormularioRecetas = ({ editar }) => {
-
   const {
     register,
     handleSubmit,
@@ -12,19 +17,28 @@ const FormularioRecetas = ({ editar }) => {
     reset,
     setValue,
   } = useForm();
+  const { id } = useParams();
+  const navegar = useNavigate();
+  const [recetaEntrada, setRecetaEntrada] = useState({});
 
   const recetaValidada = async (receta) => {
-    const arrayIngredientes = receta.listaIngredientes.split(',')
-    const arrayNuevo = []
-    for (let i = 0; i < arrayIngredientes.length; i++){
-      const ingredienteSinEspacio = arrayIngredientes[i].trim()
-      arrayNuevo.push(ingredienteSinEspacio)
+    let arrayIngredientes = [];
+    if (typeof receta.listaIngredientes === "string") {
+      arrayIngredientes = receta.listaIngredientes.split(",");
+      const arrayNuevo = [];
+      for (let i = 0; i < arrayIngredientes.length; i++) {
+        const ingredienteSinEspacio = arrayIngredientes[i].trim();
+        if (ingredienteSinEspacio.length > 0) {
+          arrayNuevo.push(ingredienteSinEspacio);
+        }
+      }
+      receta.listaIngredientes = arrayNuevo;
     }
-    receta.listaIngredientes = arrayNuevo
+    const recetaSalida = receta;
 
     if (editar === false) {
-      const respuesta = await crearRecetaAPI(receta)
-      if (respuesta.status === 201){
+      const respuesta = await crearRecetaAPI(receta);
+      if (respuesta.status === 201) {
         Swal.fire({
           title: "Receta creada",
           text: `La receta "${receta.nombre}" fue creada correctamente`,
@@ -38,18 +52,96 @@ const FormularioRecetas = ({ editar }) => {
           icon: "error",
         });
       }
+    } else {
+      if (recetaInDistintaRecetaOut(recetaEntrada, recetaSalida)) {
+        const respuesta = await editarReceta(recetaSalida, id);
+        if (respuesta.status === 200) {
+          Swal.fire({
+            title: "Receta modificada",
+            text: `La receta "${receta.nombre}" fue modificada correctamente`,
+            icon: "success",
+          });
+          navegar('/administrador')
+        } else {
+          Swal.fire({
+            title: "La receta no pudo ser modificada",
+            text: `La receta "${receta.nombre}" no pudo ser modificada. Intente esta operación en unos minutos`,
+            icon: "error",
+          });
+        }
+      } else {
+        Swal.fire({
+          title: "No se encontro ningun cambio",
+          text: `La receta "${receta.nombre}" no presenta ningún cambio para ser modificada`,
+          icon: "warning",
+        });
+      }
     }
   };
-  
+
+  const recetaInDistintaRecetaOut = (recetaEntrada, recetaSalida) => {
+    // Funcion para verificar si el objeto que se carga al inicio es modificado.
+    const keysRecetaEntrada = Object.keys(recetaEntrada);
+
+    for (let i = 0; i < keysRecetaEntrada.length; i++) {
+      const key = keysRecetaEntrada[i];
+      if (
+        keysRecetaEntrada[i] !== "listaIngredientes" &&
+        keysRecetaEntrada[i] !== "id"
+      ) {
+        if (recetaEntrada[key] !== recetaSalida[key]) {
+          return true;
+        }
+      }
+
+      if (keysRecetaEntrada[i] === "listaIngredientes") {
+        if (recetaEntrada[key].length !== recetaSalida[key].length) {
+          return true;
+        }
+
+        for (let i = 0; i < recetaEntrada[key].length; i++) {
+          if (recetaEntrada[key][i] !== recetaSalida[key][i]) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  };
+
+  const cargarReceta = async () => {
+    try {
+      const respuesta = await leerRecetaPorId(id);
+      if (respuesta.status === 200) {
+        const recetaObtenida = await respuesta.json();
+        setRecetaEntrada(recetaObtenida);
+        setValue("nombre", recetaObtenida.nombre);
+        setValue("imagen", recetaObtenida.imagen);
+        setValue("categoria", recetaObtenida.categoria);
+        setValue("descripcionBreve", recetaObtenida.descripcionBreve);
+        setValue("recetaCompleta", recetaObtenida.recetaCompleta);
+        setValue("listaIngredientes", recetaObtenida.listaIngredientes);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (editar === true) {
+      cargarReceta();
+    }
+  }, []);
 
   return (
     <section className="container mainSection">
-      {editar === false ? 
-        <h1 className="display-4 mt-5">Nueva Receta</h1>
-        :
-        <h1 className="display-4 mt-5">Editar Receta</h1>
-    }
-      
+      {editar === false ? (
+        <h1 className="display-4 mt-5">Nueva receta</h1>
+      ) : (
+        <h1 className="display-4 mt-5">Editar receta</h1>
+      )}
+
       <hr />
       <Form className="my-4" onSubmit={handleSubmit(recetaValidada)}>
         <Form.Group className="mb-3" controlId="formNombreReceta">
@@ -65,12 +157,12 @@ const FormularioRecetas = ({ editar }) => {
                   "El nombre de la receta debe tener como mínimo 2 caracteres",
               },
               maxLength: {
-                value: 30,
+                value: 50,
                 message:
-                  "El nombre de la receta debe tener como maximo 30 caracteres",
+                  "El nombre de la receta debe tener como maximo 50 caracteres",
               },
             })}
-            maxLength={30}
+            maxLength={50}
           />
           <Form.Text className="text-danger">
             {errors.nombre?.message}
@@ -86,8 +178,8 @@ const FormularioRecetas = ({ editar }) => {
               required: "La imagen es obligatoria",
               pattern: {
                 value: /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/,
-                message: "Debe ingresar una URL valida (jpg|jpeg|gif|png)"
-              }
+                message: "Debe ingresar una URL valida (jpg|jpeg|gif|png)",
+              },
             })}
           />
           <Form.Text className="text-danger">
@@ -98,9 +190,9 @@ const FormularioRecetas = ({ editar }) => {
         <Form.Group className="mb-3" controlId="formCategoria">
           <Form.Label>Categoría*</Form.Label>
           <Form.Select
-          {...register ("categoria", {
-            required: "La categoría es obligatoria"
-          })}
+            {...register("categoria", {
+              required: "La categoría es obligatoria",
+            })}
           >
             <option value="">Seleccione una opción</option>
             <option value="Sopas">Sopas</option>
@@ -123,12 +215,12 @@ const FormularioRecetas = ({ editar }) => {
               required: "La descripción breve es obligatoria",
               minLength: {
                 value: 5,
-                message: "Debe contener como mínimo 5 caracteres"
+                message: "Debe contener como mínimo 5 caracteres",
               },
-              maxLength:{
+              maxLength: {
                 value: 50,
-                message: "Debe contener como máximo 50 caracteres"
-              }
+                message: "Debe contener como máximo 50 caracteres",
+              },
             })}
           />
           <Form.Text className="text-danger">
@@ -143,16 +235,16 @@ const FormularioRecetas = ({ editar }) => {
             placeholder="Ej: Condimenta los alimentos con sal, pimienta y hierbas, luego..."
             as="textarea"
             maxLength={700}
-            {...register ("recetaCompleta", {
+            {...register("recetaCompleta", {
               required: "La descripción completa es obligatoria",
               minLength: {
                 value: 15,
-                message: "Debe contener como mínimo 15 caracteres"
+                message: "Debe contener como mínimo 15 caracteres",
               },
               maxLength: {
                 value: 700,
-                message: "Debe contener como máximo 700 caracteres"
-              }
+                message: "Debe contener como máximo 700 caracteres",
+              },
             })}
           />
           <Form.Text className="text-danger">
@@ -169,12 +261,12 @@ const FormularioRecetas = ({ editar }) => {
               required: "La lista de ingredientes es obligatoria",
               minLength: {
                 value: 5,
-                message: "Debe contener como mínimo 5 caracteres"
+                message: "Debe contener como mínimo 5 caracteres",
               },
-              maxLength:{
+              maxLength: {
                 value: 150,
-                message: "Debe contener como máximo 150 caracteres"
-              }
+                message: "Debe contener como máximo 150 caracteres",
+              },
             })}
             maxLength={150}
           />

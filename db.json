@@ -1,38 +1,24 @@
 {
   "recetas": [
     {
-      "id": "1",
-      "nombreReceta": "Puré de papas",
-      "descripcionReceta": "El puré de papas es un acompañamiento suave y cremoso, preparado triturando papas cocidas con mantequilla y leche.",
-      "receta": "Para hacer un puré de papas delicioso, comienza pelando y cortando cuatro papas medianas en trozos uniformes. Cocina las papas en agua hirviendo hasta que estén tiernas. Escúrrelas y colócalas en un tazón grande. Calienta media taza de leche, pero no la dejes hervir. Agrega cuatro cucharadas de mantequilla a las papas y comienza a hacer puré. Incorpora gradualmente la leche caliente para lograr una consistencia cremosa. Añade sal al gusto y, opcionalmente, pimienta. Mezcla bien y sirve el puré caliente. ¡Listo para disfrutar!",
-      "ingredientes": [
-        "Papas medianas (aproximadamente 4)",
-        "Leche (1/2 taza)",
-        "Mantequilla (4 cucharadas)",
-        "Sal (al gusto)",
-        "Pimienta (opcional, al gusto)"
-      ]
-    },
-    {
-      "id": "882d",
-      "nombre": "Vacío a la plancha",
+      "nombre": "Vacío a la planchaa",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
       "categoria": "Carnes",
-      "descripcionBreve": "Carne dorada al vacío.",
+      "descripcionBreve": "Carne dorada al vacío.a",
       "recetaCompleta": "Condimenta al gusto, envasa al vacío y cocina a baja temperatura. Se secan los alimentos y se doran en plancha con aceite caliente. Sirve para disfrutar de una textura crujiente y jugosa.",
       "listaIngredientes": [
-        "Alimentos de elección",
+        "Carne corte vacío",
         "sal",
         "pimienta",
         "hierbas (opcional)",
-        "aceite de cocina."
-      ]
+        "aceite de cocina"
+      ],
+      "id": "882d"
     },
     {
-      "id": "b69f",
       "nombre": "Milanesas de pollo",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
-      "categoria": "Carnes",
+      "categoria": "Sopas",
       "descripcionBreve": "Pollo rebosado con pan rallado",
       "recetaCompleta": "Comienza preparando filetes de pechuga de pollo, sazónalos con sal y pimienta al gusto. Pasa cada filete por harina, luego por huevo batido y finalmente por pan rallado. Asegúrate de que estén bien cubiertos. Calienta aceite en una sartén a fuego medio-alto y cocina las milanesas hasta que estén doradas por ambos lados. Retira el exceso de aceite con papel absorbente. Sirve las milanesas con rodajas de limón y disfruta de esta deliciosa opción crujiente.",
       "listaIngredientes": [
@@ -44,10 +30,10 @@
         "Pimienta",
         "Aceite para freír",
         "Rodajas de limón (para servir)"
-      ]
+      ],
+      "id": "b69f"
     },
     {
-      "id": "7030",
       "nombre": "Puré de papas",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
       "categoria": "Ensaladas",
@@ -59,6 +45,26 @@
         "Mantequilla (4 cucharadas)",
         "Sal (al gusto)",
         "Pimienta (opcional al gusto)"
+      ],
+      "id": "7030"
+    },
+    {
+      "id": "9054",
+      "nombre": "Salmón al Horno con Salsa de Limón",
+      "imagen": "https://www.daisybrand.com/wp-content/uploads/2019/12/GRILLED-SALMON-W-LEMON-DILL-SAUCE-770x628.jpg",
+      "categoria": "Carnes",
+      "descripcionBreve": "Salmón jugoso con salsa cítrica.",
+      "recetaCompleta": "Precalienta el horno a 180°C. Coloca filetes de salmón en una bandeja. Mezcla jugo de limón, aceite de oliva, ajo picado y eneldo. Vierte la mezcla sobre el salmón. Hornea por 15-20 minutos. Mientras tanto, hierve papas. Haz una salsa con yogur, eneldo, sal y pimienta. Sirve el salmón con las papas y la salsa.",
+      "listaIngredientes": [
+        "Filetes de salmón",
+        "Limones",
+        "Aceite de oliva",
+        "Ajo",
+        "Eneldo",
+        "Papas",
+        "Yogur",
+        "Sal",
+        "Pimienta"
       ]
     }
   ]
