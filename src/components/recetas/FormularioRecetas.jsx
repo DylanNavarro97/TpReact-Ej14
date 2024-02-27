@@ -25,7 +25,7 @@ const FormularioRecetas = () => {
             type="text"
             placeholder="Escriba aquí el nombre de su receta"
             {...register("nombre", {
-              required: "El nombre de la receta es obligatoria",
+              required: "El nombre de la receta es obligatorio",
               minLength: {
                 value: 2,
                 message:
@@ -62,11 +62,11 @@ const FormularioRecetas = () => {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formPrecio">
+        <Form.Group className="mb-3" controlId="formCategoria">
           <Form.Label>Categoría*</Form.Label>
           <Form.Select
           {...register ("categoria", {
-            required: "La categoria es obligatoria"
+            required: "La categoría es obligatoria"
           })}
           >
             <option value="">Seleccione una opción</option>
@@ -88,7 +88,7 @@ const FormularioRecetas = () => {
             placeholder="Ej: Vacío a la plancha."
             as="textarea"
             {...register("descripcionBreve", {
-              required: "La descripcion breve es obligatoria",
+              required: "La descripción breve es obligatoria",
               minLength: {
                 value: 5,
                 message: "Debe contener como mínimo 5 caracteres"
@@ -112,7 +112,7 @@ const FormularioRecetas = () => {
             as="textarea"
             maxLength={500}
             {...register ("recetaCompleta", {
-              required: "La descripcion completa es obligatoria",
+              required: "La descripción completa es obligatoria",
               minLength: {
                 value: 15,
                 message: "Debe contener como mínimo 15 caracteres"
@@ -125,6 +125,29 @@ const FormularioRecetas = () => {
           />
           <Form.Text className="text-danger">
             {errors.recetaCompleta?.message}
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formListaIngredientes">
+          <Form.Label>Lista de ingredientes*</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder={`Listar ingredientes separados por ","`}
+            as="textarea"
+            {...register("listaIngredientes", {
+              required: "La lista de ingredientes es obligatoria",
+              minLength: {
+                value: 5,
+                message: "Debe contener como mínimo 5 caracteres"
+              },
+              maxLength:{
+                value: 50,
+                message: "Debe contener como máximo 50 caracteres"
+              }
+            })}
+          />
+          <Form.Text className="text-danger">
+            {errors.listaIngredientes?.message}
           </Form.Text>
         </Form.Group>
 
