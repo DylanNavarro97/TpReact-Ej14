@@ -9,19 +9,27 @@ export const crearRecetaAPI = async (recetaNueva) => {
       },
       body: JSON.stringify(recetaNueva),
     });
-    console.log(respuesta);
     return respuesta;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const leerRecetasAPI = async () =>{
-  try{
+export const leerRecetasAPI = async () => {
+  try {
     const respuesta = await fetch(URL_Recetas);
     const listaRecetas = await respuesta.json();
-    return listaRecetas
-  }catch(error){
+    return listaRecetas;
+  } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const leerRecetaPorId = async (id) => {
+  try {
+    const respuesta = await fetch(`${URL_Recetas}/${id}`);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+};

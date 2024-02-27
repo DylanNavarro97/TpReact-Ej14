@@ -1,10 +1,11 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { crearRecetaAPI } from "../../helpers/queries";
+import { crearRecetaAPI, leerRecetaPorId } from "../../helpers/queries";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
+import { useParams } from "react-router";
 
 const FormularioRecetas = ({ editar }) => {
-
   const {
     register,
     handleSubmit,
@@ -13,18 +14,20 @@ const FormularioRecetas = ({ editar }) => {
     setValue,
   } = useForm();
 
+  const { id } = useParams();
+
   const recetaValidada = async (receta) => {
-    const arrayIngredientes = receta.listaIngredientes.split(',')
-    const arrayNuevo = []
-    for (let i = 0; i < arrayIngredientes.length; i++){
-      const ingredienteSinEspacio = arrayIngredientes[i].trim()
-      arrayNuevo.push(ingredienteSinEspacio)
+    const arrayIngredientes = receta.listaIngredientes.split(",");
+    const arrayNuevo = [];
+    for (let i = 0; i < arrayIngredientes.length; i++) {
+      const ingredienteSinEspacio = arrayIngredientes[i].trim();
+      arrayNuevo.push(ingredienteSinEspacio);
     }
-    receta.listaIngredientes = arrayNuevo
+    receta.listaIngredientes = arrayNuevo;
 
     if (editar === false) {
-      const respuesta = await crearRecetaAPI(receta)
-      if (respuesta.status === 201){
+      const respuesta = await crearRecetaAPI(receta);
+      if (respuesta.status === 201) {
         Swal.fire({
           title: "Receta creada",
           text: `La receta "${receta.nombre}" fue creada correctamente`,
@@ -38,18 +41,43 @@ const FormularioRecetas = ({ editar }) => {
           icon: "error",
         });
       }
+    } else {
     }
   };
-  
+
+  const cargarReceta = async () => {
+    try{
+      const respuesta = await leerRecetaPorId(id);
+      if (respuesta.status === 200){
+        const recetaObtenida = await respuesta.json()
+        console.log(recetaObtenida)
+        setValue("nombre", recetaObtenida.nombre)
+        setValue("imagen", recetaObtenida.imagen)
+        setValue("categoria", recetaObtenida.categoria)
+        setValue("descripcionBreve", recetaObtenida.descripcionBreve)
+        setValue("recetaCompleta", recetaObtenida.recetaCompleta)
+        setValue("listaIngredientes", recetaObtenida.listaIngredientes)
+      }
+
+    } catch (error){
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if (editar === true) {
+      cargarReceta()
+    }
+  }, []);
 
   return (
     <section className="container mainSection">
-      {editar === false ? 
-        <h1 className="display-4 mt-5">Nueva Receta</h1>
-        :
-        <h1 className="display-4 mt-5">Editar Receta</h1>
-    }
-      
+      {editar === false ? (
+        <h1 className="display-4 mt-5">Nueva receta</h1>
+      ) : (
+        <h1 className="display-4 mt-5">Editar receta</h1>
+      )}
+
       <hr />
       <Form className="my-4" onSubmit={handleSubmit(recetaValidada)}>
         <Form.Group className="mb-3" controlId="formNombreReceta">
@@ -86,8 +114,8 @@ const FormularioRecetas = ({ editar }) => {
               required: "La imagen es obligatoria",
               pattern: {
                 value: /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/,
-                message: "Debe ingresar una URL valida (jpg|jpeg|gif|png)"
-              }
+                message: "Debe ingresar una URL valida (jpg|jpeg|gif|png)",
+              },
             })}
           />
           <Form.Text className="text-danger">
@@ -98,9 +126,9 @@ const FormularioRecetas = ({ editar }) => {
         <Form.Group className="mb-3" controlId="formCategoria">
           <Form.Label>Categoría*</Form.Label>
           <Form.Select
-          {...register ("categoria", {
-            required: "La categoría es obligatoria"
-          })}
+            {...register("categoria", {
+              required: "La categoría es obligatoria",
+            })}
           >
             <option value="">Seleccione una opción</option>
             <option value="Sopas">Sopas</option>
@@ -123,12 +151,12 @@ const FormularioRecetas = ({ editar }) => {
               required: "La descripción breve es obligatoria",
               minLength: {
                 value: 5,
-                message: "Debe contener como mínimo 5 caracteres"
+                message: "Debe contener como mínimo 5 caracteres",
               },
-              maxLength:{
+              maxLength: {
                 value: 50,
-                message: "Debe contener como máximo 50 caracteres"
-              }
+                message: "Debe contener como máximo 50 caracteres",
+              },
             })}
           />
           <Form.Text className="text-danger">
@@ -143,16 +171,16 @@ const FormularioRecetas = ({ editar }) => {
             placeholder="Ej: Condimenta los alimentos con sal, pimienta y hierbas, luego..."
             as="textarea"
             maxLength={700}
-            {...register ("recetaCompleta", {
+            {...register("recetaCompleta", {
               required: "La descripción completa es obligatoria",
               minLength: {
                 value: 15,
-                message: "Debe contener como mínimo 15 caracteres"
+                message: "Debe contener como mínimo 15 caracteres",
               },
               maxLength: {
                 value: 700,
-                message: "Debe contener como máximo 700 caracteres"
-              }
+                message: "Debe contener como máximo 700 caracteres",
+              },
             })}
           />
           <Form.Text className="text-danger">
@@ -169,12 +197,12 @@ const FormularioRecetas = ({ editar }) => {
               required: "La lista de ingredientes es obligatoria",
               minLength: {
                 value: 5,
-                message: "Debe contener como mínimo 5 caracteres"
+                message: "Debe contener como mínimo 5 caracteres",
               },
-              maxLength:{
+              maxLength: {
                 value: 150,
-                message: "Debe contener como máximo 150 caracteres"
-              }
+                message: "Debe contener como máximo 150 caracteres",
+              },
             })}
             maxLength={150}
           />
