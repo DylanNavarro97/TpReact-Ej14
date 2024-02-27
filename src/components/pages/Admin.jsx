@@ -41,7 +41,7 @@ function Admin() {
           </tr>
         </thead>
         <tbody>
-          {recetas.map((receta) => (
+          {recetas?.map((receta) => (
             <ItemReceta key={receta.id} receta={receta}></ItemReceta>
           ))}
         </tbody>

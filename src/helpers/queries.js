@@ -1,5 +1,3 @@
-// import { log } from "console";
-
 const URL_Recetas = import.meta.env.VITE_API_RECETA;
 
 export const crearRecetaAPI = async (recetaNueva) => {
