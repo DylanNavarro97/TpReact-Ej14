@@ -43,7 +43,8 @@ export const editarReceta = async (recetaEditada, id) => {
       },
       body: JSON.stringify(recetaEditada)
     })
+    return respuesta
   } catch(error) {
-
+    console.log(error)
   }
 }

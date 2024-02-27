@@ -4,15 +4,21 @@
       "nombre": "Vacío a la planchaa",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
       "categoria": "Carnes",
-      "descripcionBreve": "Carne dorada al vacío.",
+      "descripcionBreve": "Carne dorada al vacío.a",
       "recetaCompleta": "Condimenta al gusto, envasa al vacío y cocina a baja temperatura. Se secan los alimentos y se doran en plancha con aceite caliente. Sirve para disfrutar de una textura crujiente y jugosa.",
-      "listaIngredientes": [],
+      "listaIngredientes": [
+        "Carne corte vacío",
+        "sal",
+        "pimienta",
+        "hierbas (opcional)",
+        "aceite de cocina"
+      ],
       "id": "882d"
     },
     {
       "nombre": "Milanesas de pollo",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
-      "categoria": "Carnes",
+      "categoria": "Sopas",
       "descripcionBreve": "Pollo rebosado con pan rallado",
       "recetaCompleta": "Comienza preparando filetes de pechuga de pollo, sazónalos con sal y pimienta al gusto. Pasa cada filete por harina, luego por huevo batido y finalmente por pan rallado. Asegúrate de que estén bien cubiertos. Calienta aceite en una sartén a fuego medio-alto y cocina las milanesas hasta que estén doradas por ambos lados. Retira el exceso de aceite con papel absorbente. Sirve las milanesas con rodajas de limón y disfruta de esta deliciosa opción crujiente.",
       "listaIngredientes": [
@@ -23,13 +29,11 @@
         "Sal",
         "Pimienta",
         "Aceite para freír",
-        "Rodajas de limón (para servir)",
-        "papas"
+        "Rodajas de limón (para servir)"
       ],
       "id": "b69f"
     },
     {
-      "id": "7030",
       "nombre": "Puré de papas",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
       "categoria": "Ensaladas",
@@ -41,7 +45,8 @@
         "Mantequilla (4 cucharadas)",
         "Sal (al gusto)",
         "Pimienta (opcional al gusto)"
-      ]
+      ],
+      "id": "7030"
     }
   ]
 }

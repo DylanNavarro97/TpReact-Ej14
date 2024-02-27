@@ -6,8 +6,8 @@ import {
   leerRecetaPorId,
 } from "../../helpers/queries";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
-import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 
 const FormularioRecetas = ({ editar }) => {
   const {
@@ -17,8 +17,9 @@ const FormularioRecetas = ({ editar }) => {
     reset,
     setValue,
   } = useForm();
-
   const { id } = useParams();
+  const navegar = useNavigate();
+  const [recetaEntrada, setRecetaEntrada] = useState({});
 
   const recetaValidada = async (receta) => {
     let arrayIngredientes = [];
@@ -27,12 +28,13 @@ const FormularioRecetas = ({ editar }) => {
       const arrayNuevo = [];
       for (let i = 0; i < arrayIngredientes.length; i++) {
         const ingredienteSinEspacio = arrayIngredientes[i].trim();
-        arrayNuevo.push(ingredienteSinEspacio);
+        if (ingredienteSinEspacio.length > 0) {
+          arrayNuevo.push(ingredienteSinEspacio);
+        }
       }
       receta.listaIngredientes = arrayNuevo;
     }
-
-    console.log(receta);
+    const recetaSalida = receta;
 
     if (editar === false) {
       const respuesta = await crearRecetaAPI(receta);
@@ -51,9 +53,61 @@ const FormularioRecetas = ({ editar }) => {
         });
       }
     } else {
-      const respuesta = await editarReceta(receta, id);
-      console.log(respuesta);
+      if (recetaInDistintaRecetaOut(recetaEntrada, recetaSalida)) {
+        const respuesta = await editarReceta(recetaSalida, id);
+        if (respuesta.status === 200) {
+          Swal.fire({
+            title: "Receta modificada",
+            text: `La receta "${receta.nombre}" fue modificada correctamente`,
+            icon: "success",
+          });
+          navegar('/administrador')
+        } else {
+          Swal.fire({
+            title: "La receta no pudo ser modificada",
+            text: `La receta "${receta.nombre}" no pudo ser modificada. Intente esta operación en unos minutos`,
+            icon: "error",
+          });
+        }
+      } else {
+        Swal.fire({
+          title: "No se encontro ningun cambio",
+          text: `La receta "${receta.nombre}" no presenta ningún cambio para ser modificada`,
+          icon: "warning",
+        });
+      }
     }
+  };
+
+  const recetaInDistintaRecetaOut = (recetaEntrada, recetaSalida) => {
+    // Funcion para verificar si el objeto que se carga al inicio es modificado.
+    const keysRecetaEntrada = Object.keys(recetaEntrada);
+
+    for (let i = 0; i < keysRecetaEntrada.length; i++) {
+      const key = keysRecetaEntrada[i];
+      if (
+        keysRecetaEntrada[i] !== "listaIngredientes" &&
+        keysRecetaEntrada[i] !== "id"
+      ) {
+        if (recetaEntrada[key] !== recetaSalida[key]) {
+          return true;
+        }
+      }
+
+      if (keysRecetaEntrada[i] === "listaIngredientes") {
+        if (recetaEntrada[key].length !== recetaSalida[key].length) {
+          return true;
+        }
+
+        for (let i = 0; i < recetaEntrada[key].length; i++) {
+          if (recetaEntrada[key][i] !== recetaSalida[key][i]) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
   };
 
   const cargarReceta = async () => {
@@ -61,6 +115,7 @@ const FormularioRecetas = ({ editar }) => {
       const respuesta = await leerRecetaPorId(id);
       if (respuesta.status === 200) {
         const recetaObtenida = await respuesta.json();
+        setRecetaEntrada(recetaObtenida);
         setValue("nombre", recetaObtenida.nombre);
         setValue("imagen", recetaObtenida.imagen);
         setValue("categoria", recetaObtenida.categoria);
