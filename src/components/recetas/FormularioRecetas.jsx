@@ -1,7 +1,10 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { crearRecetaAPI } from "../../helpers/queries";
+import Swal from "sweetalert2";
 
-const FormularioRecetas = () => {
+const FormularioRecetas = ({ editar }) => {
+
   const {
     register,
     handleSubmit,
@@ -10,16 +13,43 @@ const FormularioRecetas = () => {
     setValue,
   } = useForm();
 
-  const recetaValidada = (receta) => {
+  const recetaValidada = async (receta) => {
     const arrayIngredientes = receta.listaIngredientes.split(',')
-    receta.listaIngredientes = arrayIngredientes
-    console.log(receta)
+    const arrayNuevo = []
+    for (let i = 0; i < arrayIngredientes.length; i++){
+      const ingredienteSinEspacio = arrayIngredientes[i].trim()
+      arrayNuevo.push(ingredienteSinEspacio)
+    }
+    receta.listaIngredientes = arrayNuevo
+
+    if (editar === false) {
+      const respuesta = await crearRecetaAPI(receta)
+      if (respuesta.status === 201){
+        Swal.fire({
+          title: "Receta creada",
+          text: `La receta "${receta.nombre}" fue creada correctamente`,
+          icon: "success",
+        });
+        reset();
+      } else {
+        Swal.fire({
+          title: "La receta no pudo ser creada",
+          text: `La receta "${receta.nombre}" no pudo ser creada. Intente esta operación en unos minutos`,
+          icon: "error",
+        });
+      }
+    }
   };
   
 
   return (
     <section className="container mainSection">
-      <h1 className="display-4 mt-5">Nueva Receta</h1>
+      {editar === false ? 
+        <h1 className="display-4 mt-5">Nueva Receta</h1>
+        :
+        <h1 className="display-4 mt-5">Editar Receta</h1>
+    }
+      
       <hr />
       <Form className="my-4" onSubmit={handleSubmit(recetaValidada)}>
         <Form.Group className="mb-3" controlId="formNombreReceta">
@@ -89,7 +119,6 @@ const FormularioRecetas = () => {
           <Form.Control
             type="text"
             placeholder="Ej: Vacío a la plancha."
-            as="textarea"
             {...register("descripcionBreve", {
               required: "La descripción breve es obligatoria",
               minLength: {
@@ -113,7 +142,7 @@ const FormularioRecetas = () => {
             type="text"
             placeholder="Ej: Condimenta los alimentos con sal, pimienta y hierbas, luego..."
             as="textarea"
-            maxLength={500}
+            maxLength={700}
             {...register ("recetaCompleta", {
               required: "La descripción completa es obligatoria",
               minLength: {
@@ -121,8 +150,8 @@ const FormularioRecetas = () => {
                 message: "Debe contener como mínimo 15 caracteres"
               },
               maxLength: {
-                value: 500,
-                message: "Debe contener como máximo 500 caracteres"
+                value: 700,
+                message: "Debe contener como máximo 700 caracteres"
               }
             })}
           />
@@ -143,10 +172,11 @@ const FormularioRecetas = () => {
                 message: "Debe contener como mínimo 5 caracteres"
               },
               maxLength:{
-                value: 100,
-                message: "Debe contener como máximo 100 caracteres"
+                value: 150,
+                message: "Debe contener como máximo 150 caracteres"
               }
             })}
+            maxLength={150}
           />
           <Form.Text className="text-danger">
             {errors.listaIngredientes?.message}
