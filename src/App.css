@@ -1,31 +1,38 @@
-#root{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.mainSection{
-    flex-grow: 1;
+.mainSection {
+  flex-grow: 1;
 }
 
-.recetaCardContainer{
-    min-width: 220px;
-    max-width: 250px;
+.recetaCardContainer {
+  min-width: 220px;
+  max-width: 250px;
 }
 
-.recetaCardImg{
-    max-height: 250px;
-    object-fit: cover;
+.recetaCardImg {
+  max-height: 250px;
+  object-fit: cover;
 }
 
 .banner {
-    object-fit: cover;
-    height: 395px;
-    width: 100%;
-  }
+  object-fit: cover;
+  height: 395px;
+  width: 100%;
+}
 
-  .img-admin{
+.vistaCard {
+  object-fit: cover;
+  height: 395px;
+  width: 100%;
+}
+
+.img-admin{
     min-width: 200px;
     height: 200px;
     object-fit: cover;
 }
+

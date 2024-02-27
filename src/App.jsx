@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Menu from './components/common/Menu';
 import Inicio from './components/pages/Inicio';
 import Footer from './components/common/Footer';
+import VistaReceta from './components/pages/VistaReceta';
 import Error404 from './components/pages/Error404';
 import Admin from './components/pages/Admin';
 import FormularioRecetas from './components/recetas/FormularioRecetas';
