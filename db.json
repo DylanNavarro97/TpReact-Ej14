@@ -47,6 +47,25 @@
         "Pimienta (opcional al gusto)"
       ],
       "id": "7030"
+    },
+    {
+      "id": "9054",
+      "nombre": "Salmón al Horno con Salsa de Limón",
+      "imagen": "https://www.daisybrand.com/wp-content/uploads/2019/12/GRILLED-SALMON-W-LEMON-DILL-SAUCE-770x628.jpg",
+      "categoria": "Carnes",
+      "descripcionBreve": "Salmón jugoso con salsa cítrica.",
+      "recetaCompleta": "Precalienta el horno a 180°C. Coloca filetes de salmón en una bandeja. Mezcla jugo de limón, aceite de oliva, ajo picado y eneldo. Vierte la mezcla sobre el salmón. Hornea por 15-20 minutos. Mientras tanto, hierve papas. Haz una salsa con yogur, eneldo, sal y pimienta. Sirve el salmón con las papas y la salsa.",
+      "listaIngredientes": [
+        "Filetes de salmón",
+        "Limones",
+        "Aceite de oliva",
+        "Ajo",
+        "Eneldo",
+        "Papas",
+        "Yogur",
+        "Sal",
+        "Pimienta"
+      ]
     }
   ]
 }

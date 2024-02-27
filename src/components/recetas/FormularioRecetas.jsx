@@ -157,12 +157,12 @@ const FormularioRecetas = ({ editar }) => {
                   "El nombre de la receta debe tener como mínimo 2 caracteres",
               },
               maxLength: {
-                value: 30,
+                value: 50,
                 message:
-                  "El nombre de la receta debe tener como maximo 30 caracteres",
+                  "El nombre de la receta debe tener como maximo 50 caracteres",
               },
             })}
-            maxLength={30}
+            maxLength={50}
           />
           <Form.Text className="text-danger">
             {errors.nombre?.message}
