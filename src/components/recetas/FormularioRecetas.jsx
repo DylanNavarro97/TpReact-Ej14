@@ -13,7 +13,9 @@ const FormularioRecetas = () => {
   const recetaValidada = (receta) => {
     const arrayIngredientes = receta.listaIngredientes.split(',')
     receta.listaIngredientes = arrayIngredientes
+    console.log(receta)
   };
+  
 
   return (
     <section className="container mainSection">
@@ -134,7 +136,6 @@ const FormularioRecetas = () => {
           <Form.Control
             type="text"
             placeholder={`Listar ingredientes separados por ","`}
-            as="textarea"
             {...register("listaIngredientes", {
               required: "La lista de ingredientes es obligatoria",
               minLength: {
