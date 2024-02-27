@@ -9,6 +9,7 @@ import VistaReceta from './components/pages/VistaReceta';
 import Error404 from './components/pages/Error404';
 import Admin from './components/pages/Admin';
 import FormularioRecetas from './components/recetas/FormularioRecetas';
+import RegistroAdm from './components/pages/RegistroAdm';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route exact path='/administrador' element={<Admin />}/>
           <Route exact path="/administrador/crear" element={<FormularioRecetas editar={false}/>} />
           <Route exact path="/administrador/editar/:id" element={<FormularioRecetas editar={true}/>}/>
+          <Route exact path="/registro" element={<RegistroAdm/>}/>
           <Route path="*" element={<Error404 />} />
         </Routes>
         <Footer />
