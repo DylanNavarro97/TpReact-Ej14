@@ -1,7 +1,24 @@
+import { useEffect, useState } from "react"
 import { Table } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { leerRecetasAPI } from "../../helpers/queries";
 
 function Admin() {
+  const [recetas, setRecetas] = useState([]);
+
+  useEffect(()=>{
+    consultarAPI();
+  })
+
+  const consultarAPI = async ()=>{
+    try{
+      const respuesta = await leerRecetasAPI
+      setRecetas(respuesta);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   return (
     <section className="container mainSection">
       <div className="d-flex justify-content-between align-items-center mt-5">
