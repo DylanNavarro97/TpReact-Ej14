@@ -6,6 +6,7 @@ import Inicio from './components/pages/Inicio';
 import Footer from './components/common/Footer';
 import VistaReceta from './components/pages/VistaReceta';
 import FormularioRecetas from './components/recetas/FormularioRecetas';
+import RegistroAdm from './components/pages/RegistroAdm';
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-      <VistaReceta/>
+      <RegistroAdm/>
     </>
   )
 }
