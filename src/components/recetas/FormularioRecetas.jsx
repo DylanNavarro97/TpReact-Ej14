@@ -61,6 +61,7 @@ const FormularioRecetas = () => {
             {errors.imagen?.message}
           </Form.Text>
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="formPrecio">
           <Form.Label>Categoría*</Form.Label>
           <Form.Select
@@ -79,23 +80,52 @@ const FormularioRecetas = () => {
             {errors.categoria?.message}
           </Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formImagen">
-          <Form.Label>Descripción breve*</Form.Label>
+
+        <Form.Group className="mb-3" controlId="formDescripcionBreve">
+          <Form.Label>Descripción breve de la receta*</Form.Label>
           <Form.Control
             type="text"
             placeholder="Ej: Vacío a la plancha."
             as="textarea"
+            {...register("descripcionBreve", {
+              required: "La descripcion breve es obligatoria",
+              minLength: {
+                value: 5,
+                message: "Debe contener como mínimo 5 caracteres"
+              },
+              maxLength:{
+                value: 50,
+                message: "Debe contener como máximo 50 caracteres"
+              }
+            })}
           />
-          <Form.Text className="text-danger">prueba de error</Form.Text>
+          <Form.Text className="text-danger">
+            {errors.descripcionBreve?.message}
+          </Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formImagen">
-          <Form.Label>Descripción Amplia*</Form.Label>
+
+        <Form.Group className="mb-3" controlId="formDescripcionCompleta">
+          <Form.Label>Descripción paso a paso de la receta*</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Ej: El vacio a la plancha es un plato clásico de la cocina argentina que destaca por su sencillez y delicioso sabor. Consiste en una pieza de carne de vacuno, típicamente vacío (también conocido como matambre), que se cocina a la plancha."
+            placeholder="Ej: Condimenta los alimentos con sal, pimienta y hierbas, luego..."
             as="textarea"
+            maxLength={500}
+            {...register ("recetaCompleta", {
+              required: "La descripcion completa es obligatoria",
+              minLength: {
+                value: 15,
+                message: "Debe contener como mínimo 15 caracteres"
+              },
+              maxLength: {
+                value: 500,
+                message: "Debe contener como máximo 500 caracteres"
+              }
+            })}
           />
-          <Form.Text className="text-danger">prueba de error</Form.Text>
+          <Form.Text className="text-danger">
+            {errors.recetaCompleta?.message}
+          </Form.Text>
         </Form.Group>
 
         <Button type="submit" variant="success">
