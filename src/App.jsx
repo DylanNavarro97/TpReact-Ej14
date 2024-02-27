@@ -18,7 +18,8 @@ function App() {
       <BrowserRouter>
         <Menu />
         <Routes>
-          <Route exact path="/" element={<Inicio />}/>  
+          <Route exact path="/" element={<Inicio />}/>
+          <Route exact path="/receta/:id" element={<VistaReceta />}/>  
           <Route exact path='/administrador' element={<Admin />}/>
           <Route exact path="/administrador/crear" element={<FormularioRecetas editar={false}/>} />
           <Route exact path="/administrador/editar/:id" element={<FormularioRecetas editar={true}/>}/>
