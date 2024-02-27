@@ -4,23 +4,22 @@ import { Link } from "react-router-dom";
 
 function RecetaCard({ receta }) {
   return (
-    <Card className="recetaCardContainer">
+    <Card className="recetaCardContainer d-flex flex-column h-100">
       <Card.Img
         variant="top"
-        src="https://content-cocina.lecturas.com/medio/2022/09/06/paso_a_paso_para_hacer_cazuela_de_pescado_resultado_final_00000000_240213122756_600x600.jpg"
+        src={receta.imagen}
         className="recetaCardImg"
-        alt="imagen de receta predeterminada"
+        alt={`imagen de ${receta.nombre}`}
       />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
+      <Card.Body className="h-100">
+        <Card.Title>{receta.nombre}</Card.Title>
         <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
+          {receta.descripcionBreve}
         </Card.Text>
-        <div className="text-end">
-          <Link className="btn btn-primary">Ir a la receta</Link>
-        </div>
       </Card.Body>
+      <div className="text-end pe-2 pb-2">
+          <Link className="btn btn-primary" to={`/receta/${receta.id}`}>Ver receta</Link>
+        </div>
     </Card>
   );
 }

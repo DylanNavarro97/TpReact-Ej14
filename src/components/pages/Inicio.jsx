@@ -1,8 +1,21 @@
-import React from "react";
-import {Card, Container } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Card, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { leerRecetasAPI } from "../../helpers/queries";
+import RecetaCard from "../recetas/RecetaCard";
 
 function Inicio() {
+  const [recetas, setRecetas] = useState([]);
+
+  const cargarProductos = async () => {
+    const respuesta = await leerRecetasAPI();
+    setRecetas(respuesta);
+  };
+
+  useEffect(() => {
+    cargarProductos();
+  }, []);
+
   return (
     <section className="mainSection">
       <img
@@ -13,9 +26,11 @@ function Inicio() {
       <Container fluid className="my-4">
         <h2 className="mb-3">Recetas disponibles</h2>
         <div className="row">
-          <div className="col-md-4 col-lg-2 mb-3">
-            {/* Aca va el map de las cards */}
-          </div>
+          {recetas?.map((receta) => (
+            <div className="col-md-4 col-lg-3 mb-3" key={receta.id}>
+              <RecetaCard receta={receta}/>
+            </div>
+          ))}
         </div>
       </Container>
     </section>
