@@ -9,13 +9,18 @@ const ItemReceta = ({ receta }) => {
         <img
           src={receta.imagen}
           alt={receta.nombre}
+          className="img-thumbnail"
         />
       </td>
       <td className="text-center">{receta.categoria}</td>
       <td>{receta.nombre}</td>
       <td className="text-center">
-        <Button variant="warning" className="me-lg-2"></Button>
-        <Button variant="danger"></Button>
+        <Button variant="warning" className="me-lg-2">
+        <i className="bi bi-pencil-square"></i>
+        </Button>
+        <Button variant="danger">
+        <i className="bi bi-trash"></i>
+        </Button>
       </td>
     </tr>
   );
