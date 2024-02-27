@@ -33,3 +33,17 @@ export const leerRecetaPorId = async (id) => {
     console.log(error);
   }
 };
+
+export const editarReceta = async (recetaEditada, id) => {
+  try {
+    const respuesta = await fetch (`${URL_Recetas}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(recetaEditada)
+    })
+  } catch(error) {
+
+  }
+}

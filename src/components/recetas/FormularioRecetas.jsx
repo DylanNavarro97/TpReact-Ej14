@@ -1,6 +1,10 @@
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { crearRecetaAPI, leerRecetaPorId } from "../../helpers/queries";
+import {
+  crearRecetaAPI,
+  editarReceta,
+  leerRecetaPorId,
+} from "../../helpers/queries";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useParams } from "react-router";
@@ -17,13 +21,18 @@ const FormularioRecetas = ({ editar }) => {
   const { id } = useParams();
 
   const recetaValidada = async (receta) => {
-    const arrayIngredientes = receta.listaIngredientes.split(",");
-    const arrayNuevo = [];
-    for (let i = 0; i < arrayIngredientes.length; i++) {
-      const ingredienteSinEspacio = arrayIngredientes[i].trim();
-      arrayNuevo.push(ingredienteSinEspacio);
+    let arrayIngredientes = [];
+    if (typeof receta.listaIngredientes === "string") {
+      arrayIngredientes = receta.listaIngredientes.split(",");
+      const arrayNuevo = [];
+      for (let i = 0; i < arrayIngredientes.length; i++) {
+        const ingredienteSinEspacio = arrayIngredientes[i].trim();
+        arrayNuevo.push(ingredienteSinEspacio);
+      }
+      receta.listaIngredientes = arrayNuevo;
     }
-    receta.listaIngredientes = arrayNuevo;
+
+    console.log(receta);
 
     if (editar === false) {
       const respuesta = await crearRecetaAPI(receta);
@@ -42,31 +51,31 @@ const FormularioRecetas = ({ editar }) => {
         });
       }
     } else {
+      const respuesta = await editarReceta(receta, id);
+      console.log(respuesta);
     }
   };
 
   const cargarReceta = async () => {
-    try{
+    try {
       const respuesta = await leerRecetaPorId(id);
-      if (respuesta.status === 200){
-        const recetaObtenida = await respuesta.json()
-        console.log(recetaObtenida)
-        setValue("nombre", recetaObtenida.nombre)
-        setValue("imagen", recetaObtenida.imagen)
-        setValue("categoria", recetaObtenida.categoria)
-        setValue("descripcionBreve", recetaObtenida.descripcionBreve)
-        setValue("recetaCompleta", recetaObtenida.recetaCompleta)
-        setValue("listaIngredientes", recetaObtenida.listaIngredientes)
+      if (respuesta.status === 200) {
+        const recetaObtenida = await respuesta.json();
+        setValue("nombre", recetaObtenida.nombre);
+        setValue("imagen", recetaObtenida.imagen);
+        setValue("categoria", recetaObtenida.categoria);
+        setValue("descripcionBreve", recetaObtenida.descripcionBreve);
+        setValue("recetaCompleta", recetaObtenida.recetaCompleta);
+        setValue("listaIngredientes", recetaObtenida.listaIngredientes);
       }
-
-    } catch (error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (editar === true) {
-      cargarReceta()
+      cargarReceta();
     }
   }, []);
 

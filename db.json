@@ -1,22 +1,15 @@
 {
   "recetas": [
     {
-      "id": "882d",
-      "nombre": "Vacío a la plancha",
+      "nombre": "Vacío a la planchaa",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
       "categoria": "Carnes",
       "descripcionBreve": "Carne dorada al vacío.",
       "recetaCompleta": "Condimenta al gusto, envasa al vacío y cocina a baja temperatura. Se secan los alimentos y se doran en plancha con aceite caliente. Sirve para disfrutar de una textura crujiente y jugosa.",
-      "listaIngredientes": [
-        "Alimentos de elección",
-        "sal",
-        "pimienta",
-        "hierbas (opcional)",
-        "aceite de cocina."
-      ]
+      "listaIngredientes": [],
+      "id": "882d"
     },
     {
-      "id": "b69f",
       "nombre": "Milanesas de pollo",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
       "categoria": "Carnes",
@@ -30,8 +23,10 @@
         "Sal",
         "Pimienta",
         "Aceite para freír",
-        "Rodajas de limón (para servir)"
-      ]
+        "Rodajas de limón (para servir)",
+        "papas"
+      ],
+      "id": "b69f"
     },
     {
       "id": "7030",
