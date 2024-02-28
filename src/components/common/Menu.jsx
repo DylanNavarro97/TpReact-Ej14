@@ -3,6 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 import rollingRecetasLogo from "../../assets/rollingRecetasLogo.png"
 
 const Menu = () => {
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioRecetasRolling")) || []
+
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -17,12 +20,22 @@ const Menu = () => {
             <NavLink end className="nav-link" to="/">
               Inicio
             </NavLink>
+
+            {usuario !== 'admin@recetasrolling.com' ? 
+            <></> 
+            : 
             <NavLink end className="nav-link" to="/administrador">
               Administrador
-            </NavLink>
+            </NavLink>}
+            
+            {usuario === 'admin@recetasrolling.com' ? 
+            <></> 
+            :
             <NavLink end className="nav-link" to="/login">
               Login
             </NavLink>
+          }
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
