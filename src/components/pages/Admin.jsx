@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { leerRecetasAPI } from "../../helpers/queries";
 import ItemReceta from "../recetas/ItemReceta";
 import "../../helpers/queries"
 
 function Admin() {
   const [recetas, setRecetas] = useState([]);
-
-  useEffect(() => {
-    consultarAPI();
-  },[]);
-
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioRecetasRolling")) || []
+  const navegar = useNavigate()
+  
   const consultarAPI = async () => {
     try {
       const respuesta = await leerRecetasAPI();
@@ -21,6 +19,13 @@ function Admin() {
     }
   };
 
+  useEffect(() => {
+    consultarAPI();
+    if (usuario !== 'admin@recetasrolling.com'){
+      navegar("/")
+    } 
+  },[]);
+  
   return (
     <section className="container mainSection">
       <div className="d-flex justify-content-between align-items-center mt-5">
