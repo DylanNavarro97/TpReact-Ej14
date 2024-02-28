@@ -24,6 +24,10 @@ const Menu = () => {
     if (location.pathname === '/logueado' && usuario === 'admin@recetasrolling.com'){
       setVerifUsuario(true)
     }
+
+    if (usuario === 'admin@recetasrolling.com'){
+      setVerifUsuario(true)
+    }
   }, [location])
 
   return (
