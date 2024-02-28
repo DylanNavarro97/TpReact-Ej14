@@ -4,16 +4,20 @@ import rollingRecetasLogo from "../../assets/rollingRecetasLogo.png"
 import { useEffect, useState } from "react";
 
 const Menu = ({logueado}) => {
-  const [verifUsuario, setVerifUsuario] = useState('')
+  const [verifUsuario, setVerifUsuario] = useState(false)
   const location = useLocation();
   
-  
+  const desloguearUsuario = () => {
+    sessionStorage.clear()
+  }
   
   useEffect(() => {
     if (location.pathname === '/logueado'){
       setVerifUsuario(true)
+    } else {
+      setVerifUsuario(false)
     }
-  }, [])
+  }, [location])
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -40,7 +44,7 @@ const Menu = ({logueado}) => {
             
             {verifUsuario ? 
             <>
-            <NavLink end className="nav-link" to="/login">
+            <NavLink end className="nav-link" to="/" onClick={desloguearUsuario}>
               Logout
             </NavLink>
             </> 
