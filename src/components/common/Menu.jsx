@@ -1,11 +1,12 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import rollingRecetasLogo from "../../assets/rollingRecetasLogo.png"
 import { useEffect, useState } from "react";
 
 const Menu = () => {
   const [verifUsuario, setVerifUsuario] = useState(false)
   const location = useLocation();
+  const navegar = useNavigate()
   
   const desloguearUsuario = () => {
     sessionStorage.clear()
@@ -13,7 +14,14 @@ const Menu = () => {
   }
   
   useEffect(() => {
-    if (location.pathname === '/logueado'){
+
+    const usuario = JSON.parse(sessionStorage.getItem("usuarioRecetasRolling")) || []
+
+    if (location.pathname === '/logueado' && usuario !== 'admin@recetasrolling.com'){
+      navegar("/")
+    }
+
+    if (location.pathname === '/logueado' && usuario === 'admin@recetasrolling.com'){
       setVerifUsuario(true)
     }
   }, [location])
