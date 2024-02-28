@@ -45,7 +45,6 @@ const ItemReceta = ({ receta, setRecetas }) => {
         <img src={receta.imagen} alt={receta.nombre} className="img-admin" />
       </td>
       <td className="text-center">{receta.categoria}</td>
-      <td>{receta.nombre}</td>
       <td className="text-center">
         <Link
           to={`/administrador/editar/${receta.id}`}

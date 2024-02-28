@@ -10,7 +10,7 @@ function Admin() {
 
   useEffect(() => {
     consultarAPI();
-  });
+  },[]);
 
   const consultarAPI = async () => {
     try {
