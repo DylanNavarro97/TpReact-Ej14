@@ -68,3 +68,14 @@ export const login = (usuario) => {
     return false
   }
 };
+
+
+export const borrarRecetaAPI = async (id) => {
+  try {
+    const respuesta = await fetch(`${URL_Recetas}/${id}`, {
+      method: "DELETE"});
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+};
