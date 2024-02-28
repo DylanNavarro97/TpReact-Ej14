@@ -20,6 +20,7 @@ const FormularioRecetas = ({ editar }) => {
   const { id } = useParams();
   const navegar = useNavigate();
   const [recetaEntrada, setRecetaEntrada] = useState({});
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioRecetasRolling")) || []
 
   const recetaValidada = async (receta) => {
     let arrayIngredientes = [];
@@ -132,6 +133,9 @@ const FormularioRecetas = ({ editar }) => {
     if (editar === true) {
       cargarReceta();
     }
+    if (usuario !== 'admin@recetasrolling.com'){
+      navegar("/")
+    } 
   }, []);
 
   return (

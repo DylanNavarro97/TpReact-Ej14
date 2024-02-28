@@ -47,7 +47,18 @@ export const editarReceta = async (recetaEditada, id) => {
   } catch (error) {
     console.log(error);
   }
+}
+
+export const borrarRecetaAPI = async (id) => {
+  try {
+    const respuesta = await fetch(`${URL_Recetas}/${id}`, {
+      method: "DELETE"});
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
 };
+
 
 const usuarioAdmin = {
   mail: "admin@recetasrolling.com",
@@ -66,16 +77,5 @@ export const login = (usuario) => {
     return true; 
   }else{
     return false
-  }
-};
-
-
-export const borrarRecetaAPI = async (id) => {
-  try {
-    const respuesta = await fetch(`${URL_Recetas}/${id}`, {
-      method: "DELETE"});
-    return respuesta;
-  } catch (error) {
-    console.log(error);
   }
 };
