@@ -36,16 +36,16 @@ export const leerRecetaPorId = async (id) => {
 
 export const editarReceta = async (recetaEditada, id) => {
   try {
-    const respuesta = await fetch (`${URL_Recetas}/${id}`, {
+    const respuesta = await fetch(`${URL_Recetas}/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type" : "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(recetaEditada)
-    })
-    return respuesta
-  } catch(error) {
-    console.log(error)
+      body: JSON.stringify(recetaEditada),
+    });
+    return respuesta;
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -58,3 +58,25 @@ export const borrarRecetaAPI = async (id) => {
     console.log(error);
   }
 };
+
+
+const usuarioAdmin = {
+  mail: "admin@recetasrolling.com",
+  password: "-Recetas1024-",
+};
+
+export const login = (usuario) => {
+  if (
+    usuario.mail === usuarioAdmin.mail &&
+    usuario.password === usuarioAdmin.password
+  ) {
+    sessionStorage.setItem(
+      "usuarioRecetasRolling",
+      JSON.stringify(usuario.mail)
+    );
+    return true; 
+  }else{
+    return false
+  }
+};
+
