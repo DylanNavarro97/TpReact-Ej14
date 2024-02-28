@@ -1,7 +1,7 @@
 {
   "recetas": [
     {
-      "nombre": "Vacío a la planchaa",
+      "nombre": "Vacío a la plancha",
       "imagen": "https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg",
       "categoria": "Carnes",
       "descripcionBreve": "Carne dorada al vacío.a",
@@ -66,6 +66,19 @@
         "Sal",
         "Pimienta"
       ]
+    },
+    {
+      "nombre": "Budin de pan",
+      "imagen": "https://cdn0.recetasgratis.net/es/posts/5/1/0/budin_de_pan_casero_52015_orig.jpg",
+      "categoria": "Salsas",
+      "descripcionBreve": "Receta para utilizar el pan de días anteriores.",
+      "recetaCompleta": "Poner en un bowls el pan en trozos junto con la leche tibia y dejar reposar 15 minutos. Luego yo lo mixie para que quede como una pasta.\n de la receta Budín de pan económico y fácil\nAgregar el azúcar, huevos, esencia y ralladura. Mezclar. Este sería el momento de agregar las pasas, chips o manzana rallada.\nde la receta Budín de pan económico y fácil\nTener ya listo el molde de 24 cm de diámetro o flanera acaramelado. Yo pongo el azúcar dentro del molde y apoyo sobre la hornalla bien bajita para que se haga despacito. Mover cada tanto para que no se queme.\nde la receta Budín de pan económico y fácil\nPoner la mezcla dentro y ta",
+      "listaIngredientes": [
+        "250 gr miga de pan",
+        "750 cc leche tibia",
+        "125 gr azúcar"
+      ],
+      "id": "32c3"
     }
   ]
 }
