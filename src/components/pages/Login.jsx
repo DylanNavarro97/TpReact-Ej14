@@ -3,6 +3,8 @@ import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { login } from "../../helpers/queries";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -10,6 +12,8 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioRecetasRolling")) || []
+  const navegar = useNavigate()
 
   const onSubmit = (usuario) => {
     console.log(usuario)
@@ -28,6 +32,12 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    if (usuario !== 'admin@recetasrolling.com'){
+    } else {
+      navegar("/")
+    }
+  },[])
   return (
     <section className="container mainSection">
       <div className="card my-5 border border-success">
