@@ -16,13 +16,13 @@ const Login = () => {
   const navegar = useNavigate()
 
   const onSubmit = (usuario) => {
-    console.log(usuario)
     if(login(usuario)) {
       Swal.fire({
         title: "Usuario Logueado",
         text: `Bienvenido ${usuario.mail}`,
         icon: "success",
       });
+      navegar("/logueado")
     } else {
       Swal.fire({
         title: "Ocurrio un error",
