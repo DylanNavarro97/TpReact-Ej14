@@ -1,41 +1,81 @@
+import { useEffect, useState } from "react";
+import { leerRecetaPorId } from "../../helpers/queries";
+import { useParams } from "react-router";
+import { Button, Form, FormLabel } from "react-bootstrap";
+
 const VistaReceta = () => {
+  const [receta, setReceta] = useState([]);
+  const [checked, setChecked] = useState({});
+  const { id } = useParams();
+
+  const cargarReceta = async () => {
+    try {
+      const respuesta = await leerRecetaPorId(id);
+      if (respuesta.status === 200) {
+        const datos = await respuesta.json();
+        setReceta(datos);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cargarChecks = (ingrediente) => {
+    setChecked({
+      ...checked,
+      [ingrediente]: !checked[ingrediente],
+    });
+  };
+
+  useEffect(() => {
+    cargarReceta();
+  }, []);
+
   return (
-    <section className="container my-4 mainSection border border-success rounded">
-      <div className="row ">
+    <section className="container my-4 mainSection">
+      <div className="row  border border-success rounded">
         <div className="col-lg-6 text-center my-3">
           <img
-            src="https://imag.bonviveur.com/vacio-de-ternera-a-la-plancha.jpg"
-            alt="imagen de corte de ternera a la plancha"
-            className="vistaCard img-fluid "
+            src={receta?.imagen}
+            alt={`foto de ${receta?.nombre}`}
+            className="vistaCard img-fluid"
           />
         </div>
         <div className="col-lg-6">
-          <h4 className="my-3">Vacio de ternera a la plancha</h4>
+          <h4 className="my-3">{receta?.nombre}</h4>
           <hr />
-          <p>El "vacío a la plancha" es un plato clásico de Argentina.</p>
+          <p>{receta?.descripcionBreve}</p>
           <hr />
-          <h5 className="my-2">Categoría: Carnes</h5>
+          <h5 className="my-2">Categoria: {receta?.categoria}</h5>
 
           <h5 className="mt-4">Preparacion:</h5>
-          <p>
-            Limpia el vacío de ternera, retirando membranas y exceso de grasa.
-            Salpimienta la carne y condiméntala con pimentón, ají argentino,
-            perejil, tomillo y romero. Añade ajo, cebolla, laurel, aceite,
-            vinagre y vino. Deja marinar en la nevera durante 24 horas. Retira
-            la carne de la marinada, sécala y déjala reposar 30 minutos. Asa la
-            carne en una plancha caliente por ambos lados según el punto
-            deseado. Deja reposar la carne durante 10 minutos antes de servir.
-            Este plato delicioso y jugoso es ideal para compartir en una buena
-            mesa con amigos y familiares. ¡Disfruta de esta exquisita receta
-            argentina!
-          </p>
+          <p>{receta?.recetaCompleta}</p>
         </div>
-        <div className="col-lg-12 ">
-          <h5>Ingredientes</h5>
-          <p className="container">
-            
-            
-          </p>
+        <div className="container-fluid col-lg-12 mb-3">
+          <h5>Ingredientes:</h5>
+          <div className="bg-light p-2 d-flex row">
+            {receta.listaIngredientes?.map((ingrediente, i) => (
+              <Form
+                key={i}
+                className="d-flex flex-nowrap mb-2 col-md-6 col-lg-3"
+              >
+                <input
+                  type="checkbox"
+                  id={`${ingrediente}`}
+                  className="me-2"
+                  onClick={() => cargarChecks(ingrediente)}
+                />
+                <FormLabel
+                  htmlFor={ingrediente}
+                  className={`mb-0 d-flex align-items-center ${
+                    checked[ingrediente] ? "text-decoration-line-through" : ""
+                  }`}
+                >
+                  {ingrediente}
+                </FormLabel>
+              </Form>
+            ))}
+          </div>
         </div>
       </div>
     </section>
