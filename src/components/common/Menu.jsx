@@ -3,19 +3,18 @@ import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 import rollingRecetasLogo from "../../assets/rollingRecetasLogo.png"
 import { useEffect, useState } from "react";
 
-const Menu = ({logueado}) => {
+const Menu = () => {
   const [verifUsuario, setVerifUsuario] = useState(false)
   const location = useLocation();
   
   const desloguearUsuario = () => {
     sessionStorage.clear()
+    setVerifUsuario(false)
   }
   
   useEffect(() => {
     if (location.pathname === '/logueado'){
       setVerifUsuario(true)
-    } else {
-      setVerifUsuario(false)
     }
   }, [location])
 
